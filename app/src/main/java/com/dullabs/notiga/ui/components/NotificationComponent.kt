@@ -19,7 +19,9 @@ fun NotificationComponent() {
     Card(Modifier
             .fillMaxWidth()
             .padding(10.dp),elevation = 8.dp) {
-        Row(Modifier.padding(10.dp), verticalAlignment = Alignment.CenterVertically) {
+        Row(Modifier
+                .fillMaxWidth()
+                .padding(10.dp), verticalAlignment = Alignment.CenterVertically) {
             Image(imageVector = vectorResource(id = R.drawable.ic_whatsapp))
             Spacer(Modifier.width(12.dp))
             Column() {
@@ -30,7 +32,9 @@ fun NotificationComponent() {
                 }
                 Text("We have some.", style = MaterialTheme.typography.overline)
             }
-            Icon(imageVector = vectorResource(id = R.drawable.ic_arrow_right), Modifier)
+            Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.CenterEnd) {
+                Icon(imageVector = vectorResource(id = R.drawable.ic_arrow_right))
+            }
         }
     }
 }
