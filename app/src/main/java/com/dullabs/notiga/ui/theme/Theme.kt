@@ -7,28 +7,36 @@ import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 
 private val DarkColorPalette = darkColors(
-        primary = purple200,
-        primaryVariant = purple700,
-        secondary = teal200
+        primary = blue500,
+        primaryVariant = blue400,
+        secondary = blue200,
+        background = blue700,
+        surface = blue400,
+        error = red200,
+        onPrimary = white600,
+        onSecondary = white600,
+        onBackground = white600,
+        onSurface = white600,
+        onError = white600
 )
 
 private val LightColorPalette = lightColors(
-        primary = purple500,
-        primaryVariant = purple700,
-        secondary = teal200
-
-        /* Other default colors to override
-    background = Color.White,
-    surface = Color.White,
-    onPrimary = Color.White,
-    onSecondary = Color.Black,
-    onBackground = Color.Black,
-    onSurface = Color.Black,
-    */
+        primary = blue500,
+        primaryVariant = blue400,
+        secondary = blue200,
+        secondaryVariant = blue100,
+        background = blue700,
+        surface = blue400,
+        error = red200,
+        onPrimary = white600,
+        onSecondary = white600,
+        onBackground = white600,
+        onSurface = white600,
+        onError = white600
 )
 
 @Composable
-fun NotigaTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable() () -> Unit) {
+fun NotigaTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
     val colors = if (darkTheme) {
         DarkColorPalette
     } else {
