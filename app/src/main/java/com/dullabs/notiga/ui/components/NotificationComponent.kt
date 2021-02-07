@@ -14,29 +14,28 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dullabs.notiga.R
+import com.dullabs.notiga.data.Notification
 import com.dullabs.notiga.ui.theme.NotigaTheme
 
 @Composable
-fun NotificationComponent() {
+fun NotificationComponent(notification: Notification) {
     Card(Modifier
-            .fillMaxWidth()
-            .padding(10.dp),elevation = 4.dp) {
+            .fillMaxWidth().padding(5.dp), elevation = 4.dp) {
         Row(Modifier
                 .fillMaxWidth()
                 .padding(20.dp), verticalAlignment = Alignment.CenterVertically) {
-            Image(imageVector = vectorResource(id = R.drawable.ic_whatsapp))
+            Image(imageVector = notification.getAppIcon(), "icon")
             Spacer(Modifier.width(12.dp))
             Column {
                 Row {
-                    Text("Chrome", style = MaterialTheme.typography.subtitle2)
+                    Text(notification.getAppName(), style = MaterialTheme.typography.subtitle2)
                     Spacer(Modifier.width(40.dp))
                     Text(text = "+2", color = MaterialTheme.colors.secondaryVariant, style = MaterialTheme.typography.caption)
                 }
-                Text("We have some crap that you want to check out.", modifier = Modifier.width(150.dp), style = MaterialTheme.typography.overline, overflow = TextOverflow.Ellipsis, maxLines = 1)
+                Text(notification.getNotificationDescription(), modifier = Modifier.width(150.dp), style = MaterialTheme.typography.overline, overflow = TextOverflow.Ellipsis, maxLines = 1)
             }
             Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.CenterEnd) {
-                Icon(imageVector = vectorResource(id = R.drawable.ic_arrow_right))
-
+                Icon(imageVector = vectorResource(id = R.drawable.ic_arrow_right), "right_arrow")
             }
         }
     }
@@ -45,8 +44,9 @@ fun NotificationComponent() {
 @Preview(showBackground = true)
 @Composable
 fun PreviewNotification() {
+    val notification: Notification = Notification(vectorResource(id = R.drawable.ic_whatsapp), "Chrome", "We have some crap that you want to check out.")
     NotigaTheme {
-        NotificationComponent()
+        NotificationComponent(notification)
     }
 }
 
