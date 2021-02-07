@@ -2,15 +2,9 @@ package com.dullabs.notiga
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.setContent
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.unit.dp
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dullabs.notiga.data.Notification
 import com.dullabs.notiga.ui.SwipeCallback
 import com.dullabs.notiga.ui.adapter.NotificationAdapter
-import com.dullabs.notiga.ui.components.NotificationComponent
 import com.dullabs.notiga.ui.theme.NotigaTheme
 import com.google.android.material.snackbar.Snackbar
 
@@ -70,14 +63,14 @@ class MainActivity : AppCompatActivity() {
             Notification(
                 vectorResource(id = R.drawable.ic_whatsapp),
                 "Chrome",
-                "Hello"
+                "Something hoopla"
             )
         )
         mNotificationAdapter.addItem(
             Notification(
                 vectorResource(id = R.drawable.ic_whatsapp),
                 "Chrome",
-                "Hello"
+                "Product hunt makes sense"
             )
         )
     }
@@ -89,18 +82,30 @@ class MainActivity : AppCompatActivity() {
                 val position: Int = viewHolder.adapterPosition
                 val notificationItem: Notification =
                     mNotificationAdapter.getItemAtPosition(position)
-                mNotificationAdapter.removeItem(position)
-                val snackbar: Snackbar = Snackbar.make(
-                    mCoordinatorLayout,
-                    "Item was removed from the list.",
-                    Snackbar.LENGTH_LONG
-                )
-                snackbar.setAction("Undo") {
-                    mNotificationAdapter.restoreItem(notificationItem, position)
-                    mRecyclerView.scrollToPosition(position)
+//                print("Direction $direction")
+                if (direction == ItemTouchHelper.RIGHT) {
+                    mNotificationAdapter.removeItem(position)
+                    val snackbar: Snackbar = Snackbar.make(
+                        mCoordinatorLayout,
+                        "Item was removed from the list.",
+                        Snackbar.LENGTH_LONG
+                    )
+                    snackbar.setAction("Undo") {
+                        mNotificationAdapter.restoreItem(notificationItem, position)
+                        mRecyclerView.scrollToPosition(position)
+                    }
+                    snackbar.setActionTextColor(android.graphics.Color.YELLOW)
+                    snackbar.show()
+                } else {
+                    mNotificationAdapter.notifyItemChanged(position)
+                    val snackbar: Snackbar = Snackbar.make(
+                        mCoordinatorLayout,
+                        "Item paused.",
+                        Snackbar.LENGTH_LONG
+                    )
+                    snackbar.show()
                 }
-                snackbar.setActionTextColor(android.graphics.Color.YELLOW)
-                snackbar.show()
+
 //                Snackbar(modifier = Modifier.padding(8.dp), action = {
 //                    Button(onClick = {
 //                        mNotificationAdapter.restoreItem(notificationItem, position)
@@ -114,7 +119,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        val itemTouchHelper: ItemTouchHelper = ItemTouchHelper(swipeCallback)
+        val itemTouchHelper = ItemTouchHelper(swipeCallback)
         itemTouchHelper.attachToRecyclerView(mRecyclerView)
     }
 }
