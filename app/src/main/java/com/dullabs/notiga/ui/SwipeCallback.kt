@@ -66,25 +66,8 @@ abstract class SwipeCallback(private var mContext: Context) : ItemTouchHelper.Ca
 
         val itemView: View = viewHolder.itemView
 
-        val isCanceled: Boolean = (dX.compareTo(0.0) == 0) && !isCurrentlyActive
-
-//        if (isCanceled) {
-//            clearCanvas(
-//                c,
-//                itemView.right + dX,
-//                itemView.top.toFloat(),
-//                itemView.right.toFloat(),
-//                itemView.bottom.toFloat()
-//            )
-//            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
-//            return
-//        }
         revealSwipeOptions(c, itemView, dX)
         super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
-    }
-
-    private fun clearCanvas(c: Canvas, left: Float, top: Float, right: Float, bottom: Float) {
-        c.drawRect(left, top, right, bottom, mClearPaint)
     }
 
     override fun getSwipeThreshold(viewHolder: RecyclerView.ViewHolder): Float {
