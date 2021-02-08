@@ -69,7 +69,15 @@ abstract class SwipeCallback(private var mContext: Context) : ItemTouchHelper.Ca
         val itemView: View = viewHolder.itemView
 
         revealSwipeOptions(c, itemView, dX)
-        super.onChildDraw(c, recyclerView, viewHolder, getTranslateX(itemView, dX), dY, actionState, isCurrentlyActive)
+        super.onChildDraw(
+            c,
+            recyclerView,
+            viewHolder,
+            getTranslateX(itemView, dX),
+            dY,
+            actionState,
+            isCurrentlyActive
+        )
     }
 
     override fun getSwipeThreshold(viewHolder: RecyclerView.ViewHolder): Float {
@@ -89,9 +97,9 @@ abstract class SwipeCallback(private var mContext: Context) : ItemTouchHelper.Ca
             mDeleteBackground.draw(c)
 
             val deleteIconTop: Int = itemView.top + (itemHeight - mIntrinsicHeightDelete) / 2
-            val deleteIconMargin: Int = (itemHeight - mIntrinsicHeightDelete) / 2
-            val deleteIconLeft: Int = itemView.left + deleteIconMargin
-            val deleteIconRight: Int = itemView.left + deleteIconMargin + mIntrinsicWidthDelete
+            val deleteIconLeft: Int = itemView.left + itemView.width / 4 - mIntrinsicWidthDelete / 2
+            val deleteIconRight: Int =
+                itemView.left + itemView.width / 4 + mIntrinsicWidthDelete / 2
             val deleteIconBottom: Int = deleteIconTop + mIntrinsicHeightDelete
 
             mDeleteDrawable.setBounds(
@@ -112,9 +120,8 @@ abstract class SwipeCallback(private var mContext: Context) : ItemTouchHelper.Ca
             mPauseBackground.draw(c)
 
             val pauseIconTop: Int = itemView.top + (itemHeight - mIntrinsicHeightPause) / 2
-            val pauseIconMargin: Int = (itemHeight - mIntrinsicHeightPause) / 2
-            val pauseIconLeft: Int = itemView.right - pauseIconMargin - mIntrinsicWidthPause
-            val pauseIconRight: Int = itemView.right - pauseIconMargin
+            val pauseIconLeft: Int = itemView.right - itemView.width / 4 - mIntrinsicWidthPause / 2
+            val pauseIconRight: Int = itemView.right - itemView.width / 4 + mIntrinsicWidthPause / 2
             val pauseIconBottom: Int = pauseIconTop + mIntrinsicHeightPause
             mPauseDrawable.setBounds(pauseIconLeft, pauseIconTop, pauseIconRight, pauseIconBottom)
             mPauseDrawable.draw(c)
@@ -123,9 +130,9 @@ abstract class SwipeCallback(private var mContext: Context) : ItemTouchHelper.Ca
 
     private fun getTranslateX(itemView: View, dX: Float): Float {
         return if (dX >= 0) {
-            min(dX, itemView.width/ 2.toFloat())
+            min(dX, itemView.width / 2.toFloat())
         } else {
-            max(dX, (-1) * itemView.width/ 2.toFloat())
+            max(dX, (-1) * itemView.width / 2.toFloat())
         }
     }
 
