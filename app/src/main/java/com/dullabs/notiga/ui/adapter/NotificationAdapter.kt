@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dullabs.notiga.R
 import com.dullabs.notiga.data.Notification
 import com.dullabs.notiga.ui.components.NotificationComponent
+import com.dullabs.notiga.ui.theme.NotigaTheme
 
 class NotificationAdapter(
     private var mNotificationsData: ArrayList<Notification>,
@@ -21,7 +22,9 @@ class NotificationAdapter(
 
         fun bindTo(currentNotification: Notification) {
             mNotificationItem.setContent {
-                NotificationComponent(currentNotification)
+                NotigaTheme {
+                    NotificationComponent(currentNotification)
+                }
             }
         }
     }

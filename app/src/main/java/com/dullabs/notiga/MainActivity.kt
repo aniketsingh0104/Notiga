@@ -77,12 +77,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun enableSwipeDeleteAndUndo() {
         val swipeCallback: SwipeCallback = object : SwipeCallback(this) {
-            //            @Composable
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val position: Int = viewHolder.adapterPosition
                 val notificationItem: Notification =
                     mNotificationAdapter.getItemAtPosition(position)
-//                print("Direction $direction")
                 if (direction == ItemTouchHelper.RIGHT) {
                     mNotificationAdapter.removeItem(position)
                     val snackbar: Snackbar = Snackbar.make(
@@ -95,6 +93,7 @@ class MainActivity : AppCompatActivity() {
                         mRecyclerView.scrollToPosition(position)
                     }
                     snackbar.setActionTextColor(android.graphics.Color.YELLOW)
+                    snackbar.setBackgroundTint(android.graphics.Color.DKGRAY)
                     snackbar.show()
                 } else {
                     mNotificationAdapter.notifyItemChanged(position)
@@ -103,6 +102,7 @@ class MainActivity : AppCompatActivity() {
                         "Item paused.",
                         Snackbar.LENGTH_LONG
                     )
+                    snackbar.setBackgroundTint(android.graphics.Color.DKGRAY)
                     snackbar.show()
                 }
 

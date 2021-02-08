@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:id="@+id/coordinatorLayout"
     android:layout_height="match_parent"
-    tools:context="com.dullabs.notiga.MainActivity">
+    tools:context="com.dullabs.notiga.MainActivity"
+    android:background="@color/blue_700">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">

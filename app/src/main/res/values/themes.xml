@@ -1,7 +1,8 @@
 <resources>
     <!-- Base application theme. -->
     <style name="Theme.Notiga" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:navigationBarColor">@android:color/transparent</item>
+<!--        <item name="android:statusBarColor">@android:color/transparent</item>-->
+        <item name="android:statusBarColor">@color/blue_700</item>
+        <item name="android:navigationBarColor">@color/blue_700</item>
     </style>
 </resources>
