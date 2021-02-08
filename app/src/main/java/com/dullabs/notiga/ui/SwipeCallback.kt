@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dullabs.notiga.R
 import kotlin.properties.Delegates
 import com.dullabs.notiga.utils.dpToPx
+import kotlin.math.max
+import kotlin.math.min
 
 abstract class SwipeCallback(private var mContext: Context) : ItemTouchHelper.Callback() {
 
@@ -67,11 +69,11 @@ abstract class SwipeCallback(private var mContext: Context) : ItemTouchHelper.Ca
         val itemView: View = viewHolder.itemView
 
         revealSwipeOptions(c, itemView, dX)
-        super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+        super.onChildDraw(c, recyclerView, viewHolder, getTranslateX(itemView, dX), dY, actionState, isCurrentlyActive)
     }
 
     override fun getSwipeThreshold(viewHolder: RecyclerView.ViewHolder): Float {
-        return 0.7f
+        return 0.5f
     }
 
     private fun revealSwipeOptions(c: Canvas, itemView: View, dX: Float) {
@@ -116,6 +118,14 @@ abstract class SwipeCallback(private var mContext: Context) : ItemTouchHelper.Ca
             val pauseIconBottom: Int = pauseIconTop + mIntrinsicHeightPause
             mPauseDrawable.setBounds(pauseIconLeft, pauseIconTop, pauseIconRight, pauseIconBottom)
             mPauseDrawable.draw(c)
+        }
+    }
+
+    private fun getTranslateX(itemView: View, dX: Float): Float {
+        return if (dX >= 0) {
+            min(dX, itemView.width/ 2.toFloat())
+        } else {
+            max(dX, (-1) * itemView.width/ 2.toFloat())
         }
     }
 
