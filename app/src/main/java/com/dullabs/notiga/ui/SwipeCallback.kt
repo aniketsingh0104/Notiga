@@ -90,9 +90,9 @@ abstract class SwipeCallback(private var mContext: Context) : ItemTouchHelper.Ca
             mDeleteBackground.color = mDeleteBackgroundColor
             mDeleteBackground.setBounds(
                 itemView.left + dpToPx(5, mContext),
-                itemView.top + dpToPx(10, mContext),
-                itemView.left + dX.toInt() + dpToPx(5, mContext),
-                itemView.bottom - dpToPx(10, mContext)
+                itemView.top + dpToPx(6, mContext),
+                itemView.left + dX.toInt() + dpToPx(6, mContext),
+                itemView.bottom - dpToPx(6, mContext)
             )
             mDeleteBackground.draw(c)
 
@@ -112,10 +112,10 @@ abstract class SwipeCallback(private var mContext: Context) : ItemTouchHelper.Ca
         } else {
             mPauseBackground.color = mPauseBackgroundColor
             mPauseBackground.setBounds(
-                itemView.right + dX.toInt() - dpToPx(5, mContext),
-                itemView.top + dpToPx(10, mContext),
+                itemView.right + dX.toInt() - dpToPx(6, mContext),
+                itemView.top + dpToPx(6, mContext),
                 itemView.right - dpToPx(5, mContext),
-                itemView.bottom - dpToPx(10, mContext)
+                itemView.bottom - dpToPx(6, mContext)
             )
             mPauseBackground.draw(c)
 
