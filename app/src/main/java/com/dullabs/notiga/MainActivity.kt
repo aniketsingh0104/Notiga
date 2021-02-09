@@ -1,7 +1,11 @@
 package com.dullabs.notiga
 
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.setContent
 import androidx.compose.ui.res.vectorResource
@@ -22,6 +26,7 @@ class MainActivity : AppCompatActivity() {
 //    private lateinit var mNotificationsData: ArrayList<Notification>
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -29,6 +34,8 @@ class MainActivity : AppCompatActivity() {
                 setContentView(R.layout.activity_main)
                 mRecyclerView = findViewById(R.id.recyclerView)
                 mCoordinatorLayout = findViewById(R.id.coordinatorLayout)
+                val backgroundColor = Color.argb(MaterialTheme.colors.background.alpha, MaterialTheme.colors.background.red, MaterialTheme.colors.background.green, MaterialTheme.colors.background.blue)
+                mCoordinatorLayout.setBackgroundColor(backgroundColor)
                 mRecyclerView.layoutManager = LinearLayoutManager(this)
                 mNotificationAdapter = NotificationAdapter(ArrayList(), this)
                 InitializeData()
