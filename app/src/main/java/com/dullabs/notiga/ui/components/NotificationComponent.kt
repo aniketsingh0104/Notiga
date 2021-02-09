@@ -20,7 +20,7 @@ import com.dullabs.notiga.ui.theme.NotigaTheme
 @Composable
 fun NotificationComponent(notification: Notification) {
     Card(Modifier
-            .fillMaxWidth().padding(5.dp), elevation = 4.dp) {
+            .fillMaxWidth().padding(5.dp), elevation = 10.dp) {
         Row(Modifier
                 .fillMaxWidth()
                 .padding(20.dp), verticalAlignment = Alignment.CenterVertically) {
