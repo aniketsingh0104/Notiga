@@ -6,9 +6,9 @@
     <dimen name="navigation_icon_viewport_size">24</dimen>
 
     <!--    dimensions for bottom app bar    -->
-    <dimen name="corner_radius">8dp</dimen>
-    <dimen name="bottom_appbar_layout_margin">20dp</dimen>
-    <dimen name="bottom_appbar_elevation">18dp</dimen>
+    <dimen name="corner_radius">6dp</dimen>
+    <dimen name="bottom_appbar_layout_margin">10dp</dimen>
+    <dimen name="bottom_appbar_elevation">10dp</dimen>
     <dimen name="bottom_appbar_content_inset_end">0dp</dimen>
     <dimen name="bottom_appbar_content_inset_start">0dp</dimen>
     <dimen name="bottom_appbar_fab_cradle_margin">10dp</dimen>
