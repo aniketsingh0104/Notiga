@@ -4,7 +4,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 
 class Notification(
-    private val appIcon: Painter,
+    private val appIconId: Int,
     private val appName: String,
     private val notificationDescription: String
 ) {
@@ -12,8 +12,8 @@ class Notification(
         return appName
     }
 
-    fun getAppIcon(): Painter {
-        return appIcon
+    fun getAppIconId(): Int {
+        return appIconId
     }
 
     fun getNotificationDescription(): String {
