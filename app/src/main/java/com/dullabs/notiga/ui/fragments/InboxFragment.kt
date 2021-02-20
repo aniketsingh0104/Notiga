@@ -8,8 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.ComposeView
-import androidx.compose.ui.res.painterResource
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -93,34 +91,15 @@ class InboxFragment : Fragment() {
     }
 
     private fun initializeData() {
-        mNotificationAdapter.addItem(
-            Notification(
-                R.drawable.ic_whatsapp,
-                "Chrome",
-                "We have some crap that you want to check out."
+        for (i in 1..50) {
+            mNotificationAdapter.addItem(
+                Notification(
+                    R.drawable.ic_whatsapp,
+                    "Chrome $i",
+                    "$i We have some crap that you want to check out."
+                )
             )
-        )
-        mNotificationAdapter.addItem(
-            Notification(
-                R.drawable.ic_whatsapp,
-                "Chrome",
-                "Hello"
-            )
-        )
-        mNotificationAdapter.addItem(
-            Notification(
-                R.drawable.ic_whatsapp,
-                "Chrome",
-                "Something hoopla"
-            )
-        )
-        mNotificationAdapter.addItem(
-            Notification(
-                R.drawable.ic_whatsapp,
-                "Chrome",
-                "Product hunt makes sense"
-            )
-        )
+        }
     }
 
     @Composable
