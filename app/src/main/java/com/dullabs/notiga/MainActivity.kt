@@ -10,6 +10,8 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.*
 import com.dullabs.notiga.databinding.ActivityMainBinding
 import com.google.android.material.navigation.NavigationView
+import com.google.android.material.shape.CornerFamily
+import com.google.android.material.shape.MaterialShapeDrawable
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private lateinit var mNavHostFragment: NavHostFragment
@@ -22,6 +24,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         super.onCreate(savedInstanceState)
         mainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mainBinding.root)
+        curveCornersOfAppBar()
         setupViews()
     }
 
@@ -73,6 +76,22 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         return true
+    }
+
+    fun getMainBinding(): ActivityMainBinding {
+        return mainBinding
+    }
+
+    private fun curveCornersOfAppBar() {
+        val radius = resources.getDimension(R.dimen.corner_radius)
+        val bottomBarBackground = mainBinding.bottomAppBar.background as MaterialShapeDrawable
+        bottomBarBackground.shapeAppearanceModel = bottomBarBackground.shapeAppearanceModel
+            .toBuilder()
+            .setTopRightCorner(CornerFamily.ROUNDED, radius)
+            .setTopLeftCorner(CornerFamily.ROUNDED, radius)
+            .setBottomRightCorner(CornerFamily.ROUNDED, radius)
+            .setBottomLeftCorner(CornerFamily.ROUNDED, radius)
+            .build()
     }
 
 }

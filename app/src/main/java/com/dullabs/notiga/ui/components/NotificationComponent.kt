@@ -24,7 +24,7 @@ fun NotificationComponent(notification: Notification) {
         Row(Modifier
                 .fillMaxWidth()
                 .padding(20.dp), verticalAlignment = Alignment.CenterVertically) {
-            Image(painter = notification.getAppIcon(), contentDescription = "notification app icon")
+            Image(painter = painterResource(id = notification.getAppIconId()), contentDescription = "notification app icon")
             Spacer(Modifier.width(12.dp))
             Column {
                 Row {
@@ -44,7 +44,7 @@ fun NotificationComponent(notification: Notification) {
 @Preview(showBackground = true)
 @Composable
 fun PreviewNotification() {
-    val notification = Notification(painterResource(id = R.drawable.ic_whatsapp), "Chrome", "We have some crap that you want to check out.")
+    val notification = Notification(R.drawable.ic_whatsapp, "Chrome", "We have some crap that you want to check out.")
     NotigaTheme {
         NotificationComponent(notification)
     }

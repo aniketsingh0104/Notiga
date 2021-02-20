@@ -1,5 +1,6 @@
 package com.dullabs.notiga.ui.fragments
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -35,10 +36,8 @@ class InboxFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentInboxBinding.inflate(inflater, container, false)
-        val view = _binding!!.root
         setupRecyclerViewer()
-//        (activity as MainActivity).setupNavigationIcon()
-        return view
+        return _binding!!.root
     }
 
     override fun onDestroyView() {
@@ -49,19 +48,15 @@ class InboxFragment : Fragment() {
     private fun setupRecyclerViewer() {
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         mNotificationAdapter = NotificationAdapter(ArrayList(), requireContext())
+        initializeData()
         binding.recyclerView.adapter = mNotificationAdapter
-        ComposeView(requireContext()).apply {
-            setContent {
-                InitializeData()
-                binding.coordinatorLayout.setBackgroundColor(getBackGroundColor())
-            }
-        }
         enableSwipeDeleteAndUndo()
     }
 
 
     private fun enableSwipeDeleteAndUndo() {
         val swipeCallback: SwipeCallback = object : SwipeCallback(requireContext()) {
+            @SuppressLint("ShowToast")
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val position: Int = viewHolder.adapterPosition
                 val notificationItem: Notification =
@@ -69,7 +64,7 @@ class InboxFragment : Fragment() {
                 if (direction == ItemTouchHelper.RIGHT) {
                     mNotificationAdapter.removeItem(position)
                     val snackbar: Snackbar = Snackbar.make(
-                        binding.coordinatorLayout,
+                        (activity as MainActivity).getMainBinding().coordinator,
                         "Item was removed from the list.",
                         Snackbar.LENGTH_LONG
                     )
@@ -79,16 +74,16 @@ class InboxFragment : Fragment() {
                     }
                     snackbar.setActionTextColor(Color.YELLOW)
                     snackbar.setBackgroundTint(Color.DKGRAY)
-                    snackbar.show()
+                    snackbar.setAnchorView(R.id.fabBottomNav).show()
                 } else {
                     mNotificationAdapter.notifyItemChanged(position)
                     val snackbar: Snackbar = Snackbar.make(
-                        binding.coordinatorLayout,
+                        (activity as MainActivity).getMainBinding().coordinator,
                         "Item paused.",
                         Snackbar.LENGTH_LONG
                     )
                     snackbar.setBackgroundTint(Color.DKGRAY)
-                    snackbar.show()
+                    snackbar.setAnchorView(R.id.fabBottomNav).show()
                 }
             }
         }
@@ -97,32 +92,31 @@ class InboxFragment : Fragment() {
         itemTouchHelper.attachToRecyclerView(binding.recyclerView)
     }
 
-    @Composable
-    private fun InitializeData() {
+    private fun initializeData() {
         mNotificationAdapter.addItem(
             Notification(
-                painterResource(id = R.drawable.ic_whatsapp),
+                R.drawable.ic_whatsapp,
                 "Chrome",
                 "We have some crap that you want to check out."
             )
         )
         mNotificationAdapter.addItem(
             Notification(
-                painterResource(id = R.drawable.ic_whatsapp),
+                R.drawable.ic_whatsapp,
                 "Chrome",
                 "Hello"
             )
         )
         mNotificationAdapter.addItem(
             Notification(
-                painterResource(id = R.drawable.ic_whatsapp),
+                R.drawable.ic_whatsapp,
                 "Chrome",
                 "Something hoopla"
             )
         )
         mNotificationAdapter.addItem(
             Notification(
-                painterResource(id = R.drawable.ic_whatsapp),
+                R.drawable.ic_whatsapp,
                 "Chrome",
                 "Product hunt makes sense"
             )
