@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">Notiga</string>
+    <string name="inbox_route">Inbox</string>
+    <string name="batch_time_route">Batch time</string>
+    <string name="configure_route">Apps Configure</string>
+
+    <string name="pause_batching">Pause batching</string>
+    <string name="inbox">Inbox</string>
+    <string name="batch_time">Batch Time</string>
+    <string name="apps_configure">Apps Configure</string>
+
+    <string name="share">Share</string>
+    <string name="rate_us">Rate us</string>
+    <string name="delete_all_notifications">Delete all notifications</string>
+    <string name="header_title">Notiga</string>
+    <string name="header_text">Boost your productivity</string>
+
+    <string name="navigation_drawer_open">Open drawer</string>
+    <string name="navigation_drawer_close">Close drawer</string>
 </resources>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--    dimensions for navigation icon    -->
+    <dimen name="navigation_icon_width">28dp</dimen>
+    <dimen name="navigation_icon_height">15dp</dimen>
+    <dimen name="navigation_icon_viewport_size">24</dimen>
+
+    <!--    dimensions for bottom app bar    -->
+    <dimen name="corner_radius">8dp</dimen>
+    <dimen name="bottom_appbar_layout_margin">20dp</dimen>
+    <dimen name="bottom_appbar_elevation">18dp</dimen>
+    <dimen name="bottom_appbar_content_inset_end">0dp</dimen>
+    <dimen name="bottom_appbar_content_inset_start">0dp</dimen>
+    <dimen name="bottom_appbar_fab_cradle_margin">10dp</dimen>
+    <dimen name="bottom_appbar_fab_cradle_rounded_corner_radius">30dp</dimen>
+    <dimen name="bottom_navbar_layout_margin_end">120dp</dimen>
+    <dimen name="bottom_navbar_elevation">0dp</dimen>
+    <dimen name="max_fab_icon_size">20dp</dimen>
+
+</resources>

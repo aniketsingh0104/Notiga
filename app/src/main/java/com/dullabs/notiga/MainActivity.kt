@@ -1,132 +1,78 @@
 package com.dullabs.notiga
 
-import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
-import androidx.annotation.RequiresApi
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.material.MaterialTheme
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.setContent
-import androidx.compose.ui.res.vectorResource
-import androidx.coordinatorlayout.widget.CoordinatorLayout
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.dullabs.notiga.data.Notification
-import com.dullabs.notiga.ui.SwipeCallback
-import com.dullabs.notiga.ui.adapter.NotificationAdapter
-import com.dullabs.notiga.ui.theme.NotigaTheme
-import com.google.android.material.snackbar.Snackbar
+import androidx.core.view.GravityCompat
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.*
+import com.dullabs.notiga.databinding.ActivityMainBinding
+import com.google.android.material.navigation.NavigationView
 
-class MainActivity : AppCompatActivity() {
-    private lateinit var mRecyclerView: RecyclerView
-    private lateinit var mCoordinatorLayout: CoordinatorLayout
-    private lateinit var mNotificationAdapter: NotificationAdapter
-//    private lateinit var mNotificationsData: ArrayList<Notification>
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+    private lateinit var mNavHostFragment: NavHostFragment
+    private lateinit var mNavController: NavController
+    private lateinit var mainBinding: ActivityMainBinding
+    lateinit var appBarConfiguration: AppBarConfiguration
 
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            NotigaTheme {
-                setContentView(R.layout.activity_main)
-                mRecyclerView = findViewById(R.id.recyclerView)
-                mCoordinatorLayout = findViewById(R.id.coordinatorLayout)
-                val backgroundColor = Color.argb(MaterialTheme.colors.background.alpha, MaterialTheme.colors.background.red, MaterialTheme.colors.background.green, MaterialTheme.colors.background.blue)
-                mCoordinatorLayout.setBackgroundColor(backgroundColor)
-                mRecyclerView.layoutManager = LinearLayoutManager(this)
-                mNotificationAdapter = NotificationAdapter(ArrayList(), this)
-                InitializeData()
-                mRecyclerView.adapter = mNotificationAdapter
-                enableSwipeDeleteAndUndo()
-//                mNotificationsData = ArrayList()
-//                Surface(modifier = Modifier.fillMaxWidth(), color = MaterialTheme.colors.background) {
-//                    val notification: Notification = Notification(vectorResource(id = R.drawable.ic_whatsapp), "Chrome", "We have some crap that you want to check out.")
-//                    NotificationComponent(notification)
-//                }
-            }
+        mainBinding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(mainBinding.root)
+        setupViews()
+    }
+
+    private fun setupViews() {
+        mNavHostFragment =
+            supportFragmentManager.findFragmentById(R.id.fragNavHost) as NavHostFragment
+        mNavController = mNavHostFragment.navController
+//        NavigationUI.setupWithNavController(mainBinding.bottomNavView, mNavController)
+        mainBinding.bottomNavView.setupWithNavController(mNavController)
+
+        // setup toolbar with fragment_home, fragment_batch_time, fragment_apps_configure as toLevel screens
+        appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.inboxFragment,
+                R.id.batchTimeFragment,
+                R.id.appsConfigureFragment
+            ),
+            mainBinding.drawerLayout
+        )
+
+
+        // setup navigation view with nav controller (side drawer)
+        mainBinding.navView.setupWithNavController(mNavController)
+
+        mainBinding.materialToolbar.setupWithNavController(mNavController, appBarConfiguration)
+
+        // make drawer menu clickable
+        mainBinding.navView.setNavigationItemSelectedListener(this)
+    }
+
+    //bottom nav
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return item.onNavDestinationSelected(mNavController) ||
+                super.onOptionsItemSelected(item)
+    }
+
+
+    override fun onSupportNavigateUp(): Boolean {
+        return findNavController(R.id.fragNavHost).navigateUp(appBarConfiguration)
+    }
+
+    override fun onBackPressed() {
+        if (mainBinding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            mainBinding.drawerLayout.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
         }
     }
 
-    @Composable
-    private fun InitializeData() {
-        mNotificationAdapter.addItem(
-            Notification(
-                vectorResource(id = R.drawable.ic_whatsapp),
-                "Chrome",
-                "We have some crap that you want to check out."
-            )
-        )
-        mNotificationAdapter.addItem(
-            Notification(
-                vectorResource(id = R.drawable.ic_whatsapp),
-                "Chrome",
-                "Hello"
-            )
-        )
-        mNotificationAdapter.addItem(
-            Notification(
-                vectorResource(id = R.drawable.ic_whatsapp),
-                "Chrome",
-                "Something hoopla"
-            )
-        )
-        mNotificationAdapter.addItem(
-            Notification(
-                vectorResource(id = R.drawable.ic_whatsapp),
-                "Chrome",
-                "Product hunt makes sense"
-            )
-        )
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        return true
     }
 
-    private fun enableSwipeDeleteAndUndo() {
-        val swipeCallback: SwipeCallback = object : SwipeCallback(this) {
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val position: Int = viewHolder.adapterPosition
-                val notificationItem: Notification =
-                    mNotificationAdapter.getItemAtPosition(position)
-                if (direction == ItemTouchHelper.RIGHT) {
-                    mNotificationAdapter.removeItem(position)
-                    val snackbar: Snackbar = Snackbar.make(
-                        mCoordinatorLayout,
-                        "Item was removed from the list.",
-                        Snackbar.LENGTH_LONG
-                    )
-                    snackbar.setAction("Undo") {
-                        mNotificationAdapter.restoreItem(notificationItem, position)
-                        mRecyclerView.scrollToPosition(position)
-                    }
-                    snackbar.setActionTextColor(android.graphics.Color.YELLOW)
-                    snackbar.setBackgroundTint(android.graphics.Color.DKGRAY)
-                    snackbar.show()
-                } else {
-                    mNotificationAdapter.notifyItemChanged(position)
-                    val snackbar: Snackbar = Snackbar.make(
-                        mCoordinatorLayout,
-                        "Item paused.",
-                        Snackbar.LENGTH_LONG
-                    )
-                    snackbar.setBackgroundTint(android.graphics.Color.DKGRAY)
-                    snackbar.show()
-                }
-
-//                Snackbar(modifier = Modifier.padding(8.dp), action = {
-//                    Button(onClick = {
-//                        mNotificationAdapter.restoreItem(notificationItem, position)
-//                        mRecyclerView.scrollToPosition(position)
-//                    }) {
-//                        Text("Undo", color = Color.Yellow)
-//                    }
-//                } ) {
-//                    Text("Item was removed from the list.", color = Color.Cyan)
-//                }
-            }
-        }
-
-        val itemTouchHelper = ItemTouchHelper(swipeCallback)
-        itemTouchHelper.attachToRecyclerView(mRecyclerView)
-    }
 }

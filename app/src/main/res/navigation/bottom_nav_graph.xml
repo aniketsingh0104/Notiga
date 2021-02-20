@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_nav_graph.xml"
+    app:startDestination="@id/inboxFragment">
+
+    <fragment
+        android:id="@+id/inboxFragment"
+        android:name="com.dullabs.notiga.ui.fragments.InboxFragment"
+        android:label="Inbox"
+        tools:layout="@layout/fragment_inbox" />
+    <fragment
+        android:id="@+id/batchTimeFragment"
+        android:name="com.dullabs.notiga.ui.fragments.BatchTimeFragment"
+        android:label="Batch Time"
+        tools:layout="@layout/fragment_batch_time" />
+    <fragment
+        android:id="@+id/appsConfigureFragment"
+        android:name="com.dullabs.notiga.ui.fragments.AppsConfigureFragment"
+        android:label="Apps Configure"
+        tools:layout="@layout/fragment_apps_configure" />
+    <fragment
+        android:id="@+id/termsFragment"
+        android:name="com.dullabs.notiga.ui.fragments.TermsFragment"
+        android:label="fragment_terms"
+        tools:layout="@layout/fragment_terms" />
+</navigation>

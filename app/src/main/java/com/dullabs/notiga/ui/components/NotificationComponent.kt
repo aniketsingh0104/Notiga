@@ -9,7 +9,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -24,7 +24,7 @@ fun NotificationComponent(notification: Notification) {
         Row(Modifier
                 .fillMaxWidth()
                 .padding(20.dp), verticalAlignment = Alignment.CenterVertically) {
-            Image(imageVector = notification.getAppIcon(), "icon")
+            Image(painter = notification.getAppIcon(), contentDescription = "notification app icon")
             Spacer(Modifier.width(12.dp))
             Column {
                 Row {
@@ -35,7 +35,7 @@ fun NotificationComponent(notification: Notification) {
                 Text(notification.getNotificationDescription(), modifier = Modifier.width(150.dp), style = MaterialTheme.typography.overline, overflow = TextOverflow.Ellipsis, maxLines = 1)
             }
             Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.CenterEnd) {
-                Icon(imageVector = vectorResource(id = R.drawable.ic_arrow_right), "right_arrow")
+                Icon(painter = painterResource(id = R.drawable.ic_arrow_right), contentDescription = "right arrow")
             }
         }
     }
@@ -44,7 +44,7 @@ fun NotificationComponent(notification: Notification) {
 @Preview(showBackground = true)
 @Composable
 fun PreviewNotification() {
-    val notification: Notification = Notification(vectorResource(id = R.drawable.ic_whatsapp), "Chrome", "We have some crap that you want to check out.")
+    val notification = Notification(painterResource(id = R.drawable.ic_whatsapp), "Chrome", "We have some crap that you want to check out.")
     NotigaTheme {
         NotificationComponent(notification)
     }

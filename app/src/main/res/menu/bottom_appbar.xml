@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/inboxFragment"
+        android:icon="@drawable/ic_inbox_icon"
+        android:title="@string/inbox" />
+    <item
+        android:id="@+id/batchTimeFragment"
+        android:icon="@drawable/ic_timer_icon"
+        android:title="@string/batch_time" />
+    <item
+        android:id="@+id/appsConfigureFragment"
+        android:icon="@drawable/ic_app_batching"
+        android:title="@string/apps_configure" />
+</menu>
