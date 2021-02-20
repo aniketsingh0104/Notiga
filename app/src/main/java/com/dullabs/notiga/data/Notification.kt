@@ -1,7 +1,5 @@
 package com.dullabs.notiga.data
 
-import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.graphics.vector.ImageVector
 
 class Notification(
     private val appIconId: Int,
