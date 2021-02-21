@@ -2,6 +2,7 @@ package com.dullabs.notiga
 
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.navigation.NavController
@@ -13,7 +14,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.android.material.shape.CornerFamily
 import com.google.android.material.shape.MaterialShapeDrawable
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity() {
     private lateinit var mNavHostFragment: NavHostFragment
     private lateinit var mNavController: NavController
     private lateinit var mainBinding: ActivityMainBinding
@@ -32,7 +33,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         mNavHostFragment =
             supportFragmentManager.findFragmentById(R.id.fragNavHost) as NavHostFragment
         mNavController = mNavHostFragment.navController
-//        NavigationUI.setupWithNavController(mainBinding.bottomNavView, mNavController)
         mainBinding.bottomNavView.setupWithNavController(mNavController)
 
         // setup toolbar with fragment_home, fragment_batch_time, fragment_apps_configure as toLevel screens
@@ -45,22 +45,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             mainBinding.drawerLayout
         )
 
-
         // setup navigation view with nav controller (side drawer)
         mainBinding.navView.setupWithNavController(mNavController)
-
+        // setup top app bar (toolbar) with nav controller
         mainBinding.materialToolbar.setupWithNavController(mNavController, appBarConfiguration)
-
-        // make drawer menu clickable
-        mainBinding.navView.setNavigationItemSelectedListener(this)
     }
-
-    //bottom nav
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return item.onNavDestinationSelected(mNavController) ||
-                super.onOptionsItemSelected(item)
-    }
-
 
     override fun onSupportNavigateUp(): Boolean {
         return findNavController(R.id.fragNavHost).navigateUp(appBarConfiguration)
@@ -72,10 +61,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         } else {
             super.onBackPressed()
         }
-    }
-
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        return true
     }
 
     fun getMainBinding(): ActivityMainBinding {
@@ -92,6 +77,22 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             .setBottomRightCorner(CornerFamily.ROUNDED, radius)
             .setBottomLeftCorner(CornerFamily.ROUNDED, radius)
             .build()
+    }
+
+    fun hideBottomBar() {
+        mainBinding.bottomAppBar.visibility = View.GONE
+    }
+
+    fun showBottomBar() {
+        mainBinding.bottomAppBar.visibility = View.VISIBLE
+    }
+
+    fun hideFab() {
+        mainBinding.fabBottomNav.visibility = View.GONE
+    }
+
+    fun showFab() {
+        mainBinding.fabBottomNav.visibility = View.VISIBLE
     }
 
 }
