@@ -23,6 +23,6 @@
     <fragment
         android:id="@+id/termsFragment"
         android:name="com.dullabs.notiga.ui.fragments.TermsFragment"
-        android:label="fragment_terms"
+        android:label="Terms"
         tools:layout="@layout/fragment_terms" />
 </navigation>
